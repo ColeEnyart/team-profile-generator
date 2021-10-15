@@ -1,12 +1,12 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-/* const Employee = require('./lib/Employee'); */
+
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
 const generateHtml = require('./src/generateHtml');
 
-const questions = [
+const managerInfo = [
     {
         type: 'input',
         message: 'Enter the Name:  |',
@@ -21,8 +21,17 @@ const questions = [
         type: 'input',
         message: 'Enter the Email: |',
         name: 'email',
+    },
+    {
+        type: 'input',
+        message: 'Enter the Office Number: |',
+        name: 'officeNumber',
     }
 ];
+
+function choice() {
+    
+}
 
 function writeToFile(finalHtml) {
     fs.writeFile('./dist/index.html', finalHtml, err => {
@@ -30,10 +39,19 @@ function writeToFile(finalHtml) {
     })
 };
 
-function init() {
+function init(member) {
     inquirer
-        .prompt(questions)
+        .prompt(managerInfo)
         .then((responses) => {
+            switch(member) {
+                case Engineer:
+                    inquirer
+                        .prompt()
+                case Intern:
+                    inquirer
+                        .prompt(questions)
+                case Finish:
+            }
             const finalHtml = generateHtml(responses);
             writeToFile(finalHtml);
         })
