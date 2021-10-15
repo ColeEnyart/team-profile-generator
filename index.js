@@ -26,7 +26,7 @@ const questions = [
 function writeToFile(finalHtml) {
     fs.writeFile('./dist/index.html', finalHtml, err => {
         err ? console.log("error") : console.log("Success!!!")
-      })
+    })
 };
 
 function init() {
