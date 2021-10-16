@@ -62,7 +62,7 @@ function engineer(data) {
                 <p class="card-text mb-2">ID: ${data.role}</p>
                 <p class="card-text mb-2">ID: ${data.id}</p>
                 <p class="card-text">Email: ${data.email}</p>
-                <p class="card-text">Email: ${data.gitHub}</p>
+                <p class="card-text">Email: ${data.github}</p>
             </div>
         </div>
     `

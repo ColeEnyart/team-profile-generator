@@ -9,30 +9,31 @@ const generateHtml = require('./src/generateHtml');
 const teamList = [];
 
 function internInfo() {
-    inquirer.prompt([
-        {
-            type: 'input',
-            message: 'Enter the Name:  |',
-            name: 'name',
-        },
-        {
-            type: 'input',
-            message: 'Enter the ID:    |',
-            name: 'id',
-        },
-        {
-            type: 'input',
-            message: 'Enter the Email: |',
-            name: 'email',
-        },
-        {
-            type: 'input',
-            message: 'Enter the School: |',
-            name: 'school',
-        }
-    ])
+    inquirer
+        .prompt([
+            {
+                type: 'input',
+                message: 'Enter the Name:  |',
+                name: 'name',
+            },
+            {
+                type: 'input',
+                message: 'Enter the ID:    |',
+                name: 'id',
+            },
+            {
+                type: 'input',
+                message: 'Enter the Email: |',
+                name: 'email',
+            },
+            {
+                type: 'input',
+                message: 'Enter the School: |',
+                name: 'school',
+            }
+        ])
         .then(res => {
-            const intern = new Intern(res);
+            const intern = new Intern(res.name, res.id, res.email, res.school);
             teamList.push(intern);
             console.log(teamList);
             choice();
@@ -40,30 +41,31 @@ function internInfo() {
 }
 
 function engineerInfo() {
-    inquirer.prompt([
-        {
-            type: 'input',
-            message: 'Enter the Name:  |',
-            name: 'name',
-        },
-        {
-            type: 'input',
-            message: 'Enter the ID:    |',
-            name: 'id',
-        },
-        {
-            type: 'input',
-            message: 'Enter the Email: |',
-            name: 'email',
-        },
-        {
-            type: 'input',
-            message: 'Enter the GitHub: |',
-            name: 'gitHub',
-        }
-    ])
+    inquirer
+        .prompt([
+            {
+                type: 'input',
+                message: 'Enter the Name:  |',
+                name: 'name',
+            },
+            {
+                type: 'input',
+                message: 'Enter the ID:    |',
+                name: 'id',
+            },
+            {
+                type: 'input',
+                message: 'Enter the Email: |',
+                name: 'email',
+            },
+            {
+                type: 'input',
+                message: 'Enter the GitHub: |',
+                name: 'github',
+            }
+        ])
         .then(res => {
-            const engineer = new Engineer(res);
+            const engineer = new Engineer(res.name, res.id, res.email, res.github);
             teamList.push(engineer);
             console.log(teamList);
             choice();
@@ -83,7 +85,7 @@ function choice() {
         .then(res => {
             switch (res.choice) {
                 case 'Engineer':
-                    engineerInfo();
+                    engineerInfo(res);
                     break;
                 case 'Intern':
                     internInfo(res);
@@ -128,7 +130,7 @@ function init() {
             }
         ])
         .then((res) => {
-            const manager = new Manager(res);
+            const manager = new Manager(res.name, res.id, res.email, res.officeNumber);
             teamList.push(manager);
             console.log(teamList);
             choice();
