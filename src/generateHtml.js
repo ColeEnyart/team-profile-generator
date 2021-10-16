@@ -23,6 +23,7 @@ function generateHtml(data) {
                             <h2 class="card-title">${data.name}</h2>
                             <p class="card-text mb-2">ID: ${data.id}</p>
                             <p class="card-text">Email: ${data.email}</p>
+                            <p class="card-text">Email: ${data.officeNumber}</p>
                         </div>
                     </div>
                 </div>

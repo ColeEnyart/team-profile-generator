@@ -6,6 +6,8 @@ const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
 const generateHtml = require('./src/generateHtml');
 
+const teamList = [];
+
 function internInfo() {
     inquirer.prompt([
         {
@@ -29,10 +31,11 @@ function internInfo() {
             name: 'school',
         }
     ])
-    .then(res => {
-        const intern = new Intern (res);
-        generateHtml(intern);
-    })   
+        .then(res => {
+            const intern = new Intern(res);
+            teamList.push(intern);
+            choice();
+        })
 }
 
 function engineerInfo() {
@@ -58,10 +61,11 @@ function engineerInfo() {
             name: 'gitHub',
         }
     ])
-    .then(res => {
-        const engineer = new Engineer (res);
-        generateHtml(engineer);
-    })   
+        .then(res => {
+            const engineer = new Engineer(res);
+            teamList.push(engineer);
+            choice();
+        })
 }
 
 function managerInfo() {
@@ -87,14 +91,26 @@ function managerInfo() {
             name: 'officeNumber',
         }
     ])
-    .then(res => {
-        const manager = new Manager (res);
-        generateHtml(manager);
-    })   
+        .then(res => {
+            const manager = new Manager(res);
+            teamList.push(manager);
+            choice();
+        })
 }
 
 function choice() {
-    
+    inquirer
+        .prompt([
+            {
+                type: 'list',
+                message: 'Enter the Office Number: |',
+                name: 'choice',
+                choices: ['Engineer', 'Intern', 'finish building my team']
+            }
+        ])
+        .then(res => {
+            (res.choice === 'finish building my team') ? generateHtml(teamList) : init(res.switch);
+        })
 }
 
 function writeToFile(finalHtml) {
@@ -103,22 +119,26 @@ function writeToFile(finalHtml) {
     })
 };
 
-function init(member) {
+function init(position) {
     inquirer
-        .prompt(managerInfo)
-        .then((responses) => {
-            switch(member) {
-                case Engineer:
-                    inquirer
-                        .prompt()
-                case Intern:
-                    inquirer
-                        .prompt(questions)
-                case Finish:
+        .prompt(managerInfo())
+        .then((res) => {
+            switch (position) {
+                case 'Engineer':
+                    engineerInfo(res);
+                    break;
+                case 'Intern':
+                    internInfo(res);
+                    break;
+                case 'Manager':
+                    managerInfo(res);
+                    break;
+                default:
+                    console.log('Error in switch');
             }
-            const finalHtml = generateHtml(responses);
+            const finalHtml = generateHtml(res);
             writeToFile(finalHtml);
         })
 };
 
-init();
+init('Manager');
