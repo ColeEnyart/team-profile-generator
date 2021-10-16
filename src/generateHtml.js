@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const topHtml = `
+let topHtml = `
     <!DOCTYPE html>
     <html lang="en">
         <head>
@@ -36,52 +36,48 @@ const bottomHtml = `
     </html>
 `
 
-function manager(data) {
-    return `
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h2 class="card-title">${data.name}</h2>
-                <p class="card-text mb-2">ID: ${data.role}</p>
-                <p class="card-text mb-2">ID: ${data.id}</p>
-                <p class="card-text">Email: ${data.email}</p>
-                <p class="card-text">Email: ${data.officeNumber}</p>
-            </div>
-        </div>
-    `
-}
-
-function engineer(data) {
-    return `
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h2 class="card-title">${data.name}</h2>
-                <p class="card-text mb-2">ID: ${data.role}</p>
-                <p class="card-text mb-2">ID: ${data.id}</p>
-                <p class="card-text">Email: ${data.email}</p>
-                <p class="card-text">Email: ${data.github}</p>
-            </div>
-        </div>
-    `
-}
-
-function intern(data) {
-    return `
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h2 class="card-title">${data.name}</h2>
-                <p class="card-text mb-2">ID: ${data.role}</p>
-                <p class="card-text mb-2">ID: ${data.id}</p>
-                <p class="card-text">Email: ${data.email}</p>
-                <p class="card-text">Email: ${data.school}</p>
-            </div>
-        </div>
-    `
-}
-
 function writeToFile(finalHtml) {
     fs.writeFile('./dist/index.html', finalHtml, err => {
         err ? console.log("error") : console.log("Success!!!")
     })
 };
+
+function generateHtml(list) {
+    list.forEach(employee => {
+        let rolePosition = employee.getRole();
+        let roleSpecific = ``;
+
+        switch (employee.getRole()) {
+            case 'Manager':
+                roleSpecific = `<p class="card-text">Office Number: ${employee.officeNumber}</p>`
+                break;
+            case 'Engineer':
+                roleSpecific = `<p class="card-text"><a href="${employee.github}" target="_blank">GitHub: ${employee.github}</a></p>`
+                break;
+            case 'Intern':
+                roleSpecific = `<p class="card-text">School: ${employee.school}</p>`
+                break;
+            default:
+                console.log('Error in switch');
+        }
+
+        let card = `
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h2 class="card-title">${employee.name}</h2>
+                    <p class="card-text mb-2">${rolePosition}</p>
+                    <p class="card-text mb-2">ID: ${employee.id}</p>
+                    <p class="card-text"><a href="mailto:${employee.email}">Email: ${employee.email}</a></p>
+                    ${roleSpecific}
+                </div>
+            </div>
+        `
+        topHtml = topHtml.concat(card);
+    });
+
+    let finalHtml = topHtml.concat(bottomHtml);
+
+    writeToFile(finalHtml);
+}
 
 module.exports = generateHtml;
