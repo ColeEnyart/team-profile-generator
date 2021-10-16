@@ -34,6 +34,7 @@ function internInfo() {
         .then(res => {
             const intern = new Intern(res);
             teamList.push(intern);
+            console.log(teamList);
             choice();
         })
 }
@@ -64,39 +65,10 @@ function engineerInfo() {
         .then(res => {
             const engineer = new Engineer(res);
             teamList.push(engineer);
+            console.log(teamList);
             choice();
         })
 }
-
-/* function managerInfo() {
-    inquirer.prompt([
-        {
-            type: 'input',
-            message: 'Enter the Name:  |',
-            name: 'name',
-        },
-        {
-            type: 'input',
-            message: 'Enter the ID:    |',
-            name: 'id',
-        },
-        {
-            type: 'input',
-            message: 'Enter the Email: |',
-            name: 'email',
-        },
-        {
-            type: 'input',
-            message: 'Enter the Office Number: |',
-            name: 'officeNumber',
-        }
-    ])
-        .then(res => {
-            const manager = new Manager(res);
-            teamList.push(manager);
-            choice();
-        })
-} */
 
 function choice() {
     inquirer
@@ -109,10 +81,8 @@ function choice() {
             }
         ])
         .then(res => {
-            /* const string = JSON.stringfy(res);
-            console.log(string); */
-            switch (res) {
-                case { choice: 'Engineer' }:
+            switch (res.choice) {
+                case 'Engineer':
                     engineerInfo();
                     break;
                 case 'Intern':
