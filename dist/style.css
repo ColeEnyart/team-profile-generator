@@ -6,13 +6,6 @@ body {
   background: #111 !important;
 }
 
-.card {
-  background: #222;
-  border: 1px solid #dd2476;
-  color: rgba(250, 250, 250, 0.8);
-  margin-bottom: 2rem;
-}
-
 nav {
   background-color: #222;
 }
@@ -20,3 +13,15 @@ nav {
 span {
   color: #dd2476;
 }
+
+main {
+  justify-content: space-evenly;
+}
+
+.card {
+  background: #222;
+  border: 1px solid #dd2476;
+  color: rgba(250, 250, 250, 0.8);
+  margin-bottom: 2rem;
+}
+
