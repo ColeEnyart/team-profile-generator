@@ -68,7 +68,7 @@ function engineerInfo() {
         })
 }
 
-function managerInfo() {
+/* function managerInfo() {
     inquirer.prompt([
         {
             type: 'input',
@@ -96,20 +96,34 @@ function managerInfo() {
             teamList.push(manager);
             choice();
         })
-}
+} */
 
 function choice() {
     inquirer
         .prompt([
             {
                 type: 'list',
-                message: 'Enter the Office Number: |',
+                message: 'Do you want to add another team member? |',
                 name: 'choice',
                 choices: ['Engineer', 'Intern', 'finish building my team']
             }
         ])
         .then(res => {
-            (res.choice === 'finish building my team') ? generateHtml(teamList) : init(res.switch);
+            /* const string = JSON.stringfy(res);
+            console.log(string); */
+            switch (res) {
+                case { choice: 'Engineer' }:
+                    engineerInfo();
+                    break;
+                case 'Intern':
+                    internInfo(res);
+                    break;
+                case 'finish building my team':
+                    generateHtml(teamList);
+                    break;
+                default:
+                    console.log('Error in switch');
+            }
         })
 }
 
@@ -119,26 +133,36 @@ function writeToFile(finalHtml) {
     })
 };
 
-function init(position) {
+function init() {
     inquirer
-        .prompt(managerInfo())
-        .then((res) => {
-            switch (position) {
-                case 'Engineer':
-                    engineerInfo(res);
-                    break;
-                case 'Intern':
-                    internInfo(res);
-                    break;
-                case 'Manager':
-                    managerInfo(res);
-                    break;
-                default:
-                    console.log('Error in switch');
+        .prompt([
+            {
+                type: 'input',
+                message: 'Enter the Name:  |',
+                name: 'name',
+            },
+            {
+                type: 'input',
+                message: 'Enter the ID:    |',
+                name: 'id',
+            },
+            {
+                type: 'input',
+                message: 'Enter the Email: |',
+                name: 'email',
+            },
+            {
+                type: 'input',
+                message: 'Enter the Office Number: |',
+                name: 'officeNumber',
             }
-            const finalHtml = generateHtml(res);
-            writeToFile(finalHtml);
+        ])
+        .then((res) => {
+            const manager = new Manager(res);
+            teamList.push(manager);
+            console.log(teamList);
+            choice();
         })
 };
 
-init('Manager');
+init();

@@ -40,4 +40,46 @@ function generateHtml(data) {
     `;
 }
 
+function manager(data) {
+    return `
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h2 class="card-title">${data.name}</h2>
+                <p class="card-text mb-2">ID: ${data.role}</p>
+                <p class="card-text mb-2">ID: ${data.id}</p>
+                <p class="card-text">Email: ${data.email}</p>
+                <p class="card-text">Email: ${data.officeNumber}</p>
+            </div>
+        </div>
+    `
+}
+
+function engineer(data) {
+    return `
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h2 class="card-title">${data.name}</h2>
+                <p class="card-text mb-2">ID: ${data.role}</p>
+                <p class="card-text mb-2">ID: ${data.id}</p>
+                <p class="card-text">Email: ${data.email}</p>
+                <p class="card-text">Email: ${data.gitHub}</p>
+            </div>
+        </div>
+    `
+}
+
+function intern(data) {
+    return `
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h2 class="card-title">${data.name}</h2>
+                <p class="card-text mb-2">ID: ${data.role}</p>
+                <p class="card-text mb-2">ID: ${data.id}</p>
+                <p class="card-text">Email: ${data.email}</p>
+                <p class="card-text">Email: ${data.school}</p>
+            </div>
+        </div>
+    `
+}
+
 module.exports = generateHtml;
