@@ -1,5 +1,4 @@
 const inquirer = require('inquirer');
-const fs = require('fs');
 
 const Intern = require('./lib/Intern');
 const Engineer = require('./lib/Engineer');
@@ -98,12 +97,6 @@ function choice() {
             }
         })
 }
-
-function writeToFile(finalHtml) {
-    fs.writeFile('./dist/index.html', finalHtml, err => {
-        err ? console.log("error") : console.log("Success!!!")
-    })
-};
 
 function init() {
     inquirer
