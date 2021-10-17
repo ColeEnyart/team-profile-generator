@@ -47,7 +47,7 @@ function generateHtml(list) {
                 break;
             case 'Engineer':
                 teamRole = `<h5 class="card-title mb-2"><i class="fab fa-dev"></i> ${teamRole}</h5>`
-                roleInfo = `<li class="list-group-item">GitHub: <a href="${employee.github}" target="_blank">${employee.github}</a></li>`
+                roleInfo = `<li class="list-group-item">GitHub: <a href="https://github.com/${employee.github}" target="_blank">${employee.github}</a></li>`
                 break;
             case 'Intern':
                 teamRole = `<h5 class="card-title mb-2"><i class="fas fa-university"></i> ${teamRole}</h5>`
