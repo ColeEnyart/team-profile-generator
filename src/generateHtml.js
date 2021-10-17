@@ -1,5 +1,7 @@
+// Require fs
 const fs = require('fs');
 
+// The top part of the HTML, goes before the team cards
 let topHtml = `
     <!DOCTYPE html>
     <html lang="en">
@@ -21,6 +23,7 @@ let topHtml = `
             <main class="container row mx-auto mt-4">
 `
 
+// The bottom part of the HTML, comes after the team cards
 const bottomHtml = `
             </main>
 
@@ -31,12 +34,7 @@ const bottomHtml = `
     </html>
 `
 
-function writeToFile(finalHtml) {
-    fs.writeFile('./dist/index.html', finalHtml, err => {
-        err ? console.log("error") : console.log("Success!!!")
-    })
-};
-
+// Creates a HTML card for each team member
 function generateHtml(list) {
     list.forEach(employee => {
         let teamRole = employee.getRole();
@@ -60,17 +58,17 @@ function generateHtml(list) {
         }
 
         let card = `
-            <div class="card" style="width: 18rem;">
-                <div class="card-header">${employee.name}</div>
-                <div class="card-body">
-                    ${teamRole}
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">ID: ${employee.id}</li>
-                        <li class="list-group-item">Email: <a href="mailto:${employee.email}">${employee.email}</a></li>
-                        ${roleInfo}
-                    </ul>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-header">${employee.name}</div>
+                        <div class="card-body">
+                            ${teamRole}
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">ID: ${employee.id}</li>
+                                <li class="list-group-item">Email: <a href="mailto:${employee.email}">${employee.email}</a></li>
+                                ${roleInfo}
+                            </ul>
+                        </div>
                 </div>
-            </div>
         `
         topHtml = topHtml.concat(card);
     });
@@ -79,5 +77,12 @@ function generateHtml(list) {
 
     writeToFile(finalHtml);
 }
+
+// Creates an index.html file
+function writeToFile(finalHtml) {
+    fs.writeFile('./dist/index.html', finalHtml, err => {
+        err ? console.log("error") : console.log("Generated index.html");
+    })
+};
 
 module.exports = generateHtml;
