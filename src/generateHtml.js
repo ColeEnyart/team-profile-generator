@@ -8,6 +8,7 @@ let topHtml = `
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Team Profile</title>
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
             <link rel="stylesheet" href="./style.css" />
         </head>
@@ -38,18 +39,21 @@ function writeToFile(finalHtml) {
 
 function generateHtml(list) {
     list.forEach(employee => {
-        let rolePosition = employee.getRole();
-        let roleSpecific = ``;
+        let teamRole = employee.getRole();
+        let roleInfo = ``;
 
         switch (employee.getRole()) {
             case 'Manager':
-                roleSpecific = `<p class="card-text">Office Number: ${employee.officeNumber}</p>`
+                teamRole = `<h5 class="card-title mb-2"><i class="fa fa-balance-scale"></i> ${teamRole}</h5>`
+                roleInfo = `<li class="list-group-item">Office Number: ${employee.officeNumber}</li>`
                 break;
             case 'Engineer':
-                roleSpecific = `<p class="card-text"><a href="${employee.github}" target="_blank">GitHub: ${employee.github}</a></p>`
+                teamRole = `<h5 class="card-title mb-2"><i class="fab fa-dev"></i> ${teamRole}</h5>`
+                roleInfo = `<li class="list-group-item">GitHub: <a href="${employee.github}" target="_blank">${employee.github}</a></li>`
                 break;
             case 'Intern':
-                roleSpecific = `<p class="card-text">School: ${employee.school}</p>`
+                teamRole = `<h5 class="card-title mb-2"><i class="fas fa-university"></i> ${teamRole}</h5>`
+                roleInfo = `<li class="list-group-item">School: ${employee.school}</li>`
                 break;
             default:
                 console.log('Error in switch');
@@ -57,12 +61,14 @@ function generateHtml(list) {
 
         let card = `
             <div class="card" style="width: 18rem;">
+                <div class="card-header">${employee.name}</div>
                 <div class="card-body">
-                    <h2 class="card-title">${employee.name}</h2>
-                    <p class="card-text mb-2">${rolePosition}</p>
-                    <p class="card-text mb-2">ID: ${employee.id}</p>
-                    <p class="card-text"><a href="mailto:${employee.email}">Email: ${employee.email}</a></p>
-                    ${roleSpecific}
+                    ${teamRole}
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">ID: ${employee.id}</li>
+                        <li class="list-group-item">Email: <a href="mailto:${employee.email}">${employee.email}</a></li>
+                        ${roleInfo}
+                    </ul>
                 </div>
             </div>
         `
